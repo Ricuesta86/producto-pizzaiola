@@ -30,8 +30,9 @@ def signin(request):
                     "error": "Usuario o la contraceña esta incorrecta",
                 },
             )
-        login(request,user)
-        return render(request, "products.html")
+        else: 
+            login(request,user)
+            return render(request, "products.html")
 
 
 def signout(request):
