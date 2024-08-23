@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from .models import Product
+from .forms import ProductForm
 
 
 # Create your views here.
@@ -44,3 +45,14 @@ def signout(request):
 def products(request):
     productos=Product.objects.all()
     return render(request, "products.html", {"productos":productos})
+
+def new_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('products')  # Redirige a la lista de productos o a otra vista
+    else:
+        form = ProductForm()
+    
+    return render(request, 'new_product.html', {'form': form})
