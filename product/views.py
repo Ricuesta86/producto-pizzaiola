@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from .models import Product
 
 
 # Create your views here.
@@ -41,4 +42,5 @@ def signout(request):
 
 
 def products(request):
-    return render(request, "products.html", {})
+    productos=Product.objects.all()
+    return render(request, "products.html", {"productos":productos})
