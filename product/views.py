@@ -78,3 +78,13 @@ def detail_product(request, id):
     
     # Renderizar la plantilla con el producto encontrado
     return render(request, 'detail_product.html', {'producto': producto})
+
+def delete_product(request, id):
+    # Obtener el producto con el ID proporcionado, o lanzar un 404 si no se encuentra
+    producto = get_object_or_404(Product, id=id)    
+
+    if request.method == 'POST':
+        producto.delete()  # Eliminar el producto
+        return redirect('products')  # Redirigir a la lista de productos
+    
+    return render(request, 'delete_product.html', {'producto': producto})

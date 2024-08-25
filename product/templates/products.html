@@ -13,6 +13,7 @@
             {% endif %}
             <a href="{% url 'products_update' producto.id %}" >Actualizar</a>
             <a href="{% url 'products_detail' producto.id %}" >Detalle</a>
+            <a href="{% url 'products_delete' producto.id %}" >Eliminar</a>
         </li>
     {% endfor %}
 </ul>
