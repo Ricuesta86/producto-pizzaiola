@@ -9,8 +9,10 @@
             <p>{{ producto.description }}</p>
             <p>Precio: ${{ producto.price }}</p>
             {% if producto.imagen %}
-                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.name }}" />
             {% endif %}
+            <a href="{% url 'products_update' producto.id %}" >Actualizar</a>
+            <a href="{% url 'products_detail' producto.id %}" >Detalle</a>
         </li>
     {% endfor %}
 </ul>

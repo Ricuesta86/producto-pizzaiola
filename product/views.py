@@ -69,4 +69,12 @@ def update_product(request,id):
     else:
         form = ProductForm(instance=producto)  # Cargar el formulario con los datos existentes del producto
     
-    return render(request, 'update_producto.html', {'form': form, 'producto': producto})
+    return render(request, 'update_product.html', {'form': form, 'producto': producto})
+
+
+def detail_product(request, id):
+    # Obtener el producto con el ID proporcionado, o lanzar un 404 si no se encuentra
+    producto = get_object_or_404(Product, id=id)
+    
+    # Renderizar la plantilla con el producto encontrado
+    return render(request, 'detail_product.html', {'producto': producto})
