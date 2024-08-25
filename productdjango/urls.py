@@ -17,18 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path
-from product import views
+from django.urls import path, include
+# from product import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('signup/',views.signup,name='signup'),
-    path('signin/',views.signin, name='signin'),
-    path('signout/',views.signout, name='signout'),
-    path('',views.home,name="home"),
-    path('products/',views.products, name='products'),
-    path('products/new/',views.new_product, name='products_new'),
-    path('products/<int:id>/update/', views.update_product, name='products_update'),
+    path('',include('product.urls')),
+    # path('signin/',views.signin, name='signin'),
+    # path('signout/',views.signout, name='signout'),
+    # path('',views.home,name="home"),
+    # path('products/',views.products, name='products'),
+    # path('products/new/',views.new_product, name='products_new'),
+    # path('products/<int:id>/update/', views.update_product, name='products_update'),
 ]
 
 if settings.DEBUG:
