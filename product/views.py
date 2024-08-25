@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from .models import Product
@@ -56,3 +56,17 @@ def new_product(request):
         form = ProductForm()
     
     return render(request, 'new_product.html', {'form': form})
+
+def update_product(request,id):
+    producto = get_object_or_404(Product, id=id)  # Obtener el producto por su ID
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()  # Guardar los cambios
+            return redirect('products')  # Redirigir a la página de detalles del producto
+            # return redirect('detalle_producto', id=Product.id)  # Redirigir a la página de detalles del producto
+    else:
+        form = ProductForm(instance=producto)  # Cargar el formulario con los datos existentes del producto
+    
+    return render(request, 'update_producto.html', {'form': form, 'producto': producto})

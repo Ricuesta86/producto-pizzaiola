@@ -28,6 +28,7 @@ urlpatterns = [
     path('',views.home,name="home"),
     path('products/',views.products, name='products'),
     path('products/new/',views.new_product, name='products_new'),
+    path('products/<int:id>/update/', views.update_product, name='products_update'),
 ]
 
 if settings.DEBUG:
