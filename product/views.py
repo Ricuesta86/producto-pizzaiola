@@ -34,7 +34,7 @@ def signin(request):
             )
         else: 
             login(request,user)
-            return render(request, "products.html")
+            return redirect('products')
 
 
 def signout(request):
