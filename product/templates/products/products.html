@@ -12,6 +12,7 @@
             {% if producto.imagen %}
                 <img src="{{ producto.imagen.url }}" alt="{{ producto.name }}" />
             {% endif %}
+            <a href="{% url 'aggregate_new' producto.id %}" >Add Agregados</a>
             <a href="{% url 'products_update' producto.id %}" >Actualizar</a>
             <a href="{% url 'products_detail' producto.id %}" >Detalle</a>
             <a href="{% url 'products_delete' producto.id %}" >Eliminar</a>
