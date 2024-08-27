@@ -1,24 +1,53 @@
+{% extends 'base.html' %} {% block content %}
 
-{% extends 'base.html' %}
-{% block content %}
-<h1>Lista de Productos</h1>
-<a href="{% url 'products_new' %}" >Adicionar</a>
-<ul>
+<div class="container mt-5">
+  <h1>Lista de Productos</h1>
+  <a href="{% url 'products_new' %}" class="btn btn-outline-primary">Adicionar</a>
+  <div class="row mt-3">
     {% for producto in productos %}
-        <li>
-            <h2>{{ producto.name }}</h2>
-            <p>{{ producto.description }}</p>
-            <p>Precio: ${{ producto.price }}</p>
-            {% if producto.imagen %}
-                <img src="{{ producto.imagen.url }}" alt="{{ producto.name }}" />
-            {% endif %}
-            <a href="{% url 'aggregate_new' producto.id %}" >Add Agregados</a>
-            <a href="{% url 'products_update' producto.id %}" >Actualizar</a>
-            <a href="{% url 'products_detail' producto.id %}" >Detalle</a>
-            <a href="{% url 'products_pdf' producto.id %}" >PDF</a>
-            <a href="{% url 'products_delete' producto.id %}" >Eliminar</a>
-        </li>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 m-3">
+      <!-- <div class="card" style="width: 18rem;" > -->
+      <div class="card h-100 shadow bg-body-tertiary rounded">
+        {% if producto.imagen %}
+        <img
+          src="{{ producto.imagen.url }}"
+          class="card-img-top"
+          alt="{{ producto.name }}"
+        />
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ producto.name }}</h5>
+          <p class="card-text">{{ producto.description }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>{{ producto.price }}</strong></li>
+        </ul>
+        <div class="card-body">
+          <a href="{% url 'aggregate_new' producto.id %}" class="btn btn-outline-primary m-1 fs-6">Agregados</a>
+          <a href="{% url 'products_update' producto.id %}" class="btn btn-outline-success m-1 fs-6">Actualizar</a>
+          <a href="{% url 'products_detail' producto.id %}" class="btn btn-outline-warning m-1 fs-6">Detalle</a>
+          <a href="{% url 'products_pdf' producto.id %}" class="btn btn-outline-info m-1 fs-6">PDF</a>
+          <a href="{% url 'products_delete' producto.id %}" class="btn btn-outline-danger m-1 fs-6">Eliminar</a>
+        </div>
+      </div>
+    </div>
+    <!-- 
+
+    <div class="col-12 col-md-6 col-lg-4">
+      <h2>{{ producto.name }}</h2>
+      <p>{{ producto.description }}</p>
+      <p>Precio: ${{ producto.price }}</p>
+      {% if producto.imagen %}
+      <img src="{{ producto.imagen.url }}" alt="{{ producto.name }}" />
+      {% endif %}
+      <a href="{% url 'aggregate_new' producto.id %}">Add Agregados</a>
+      <a href="{% url 'products_update' producto.id %}">Actualizar</a>
+      <a href="{% url 'products_detail' producto.id %}">Detalle</a>
+      <a href="{% url 'products_pdf' producto.id %}">PDF</a>
+      <a href="{% url 'products_delete' producto.id %}">Eliminar</a>
+    </div> -->
     {% endfor %}
-</ul>
+  </div>
+</div>
 
 {% endblock %}
