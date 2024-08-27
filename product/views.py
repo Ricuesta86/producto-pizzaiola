@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
 from .models import Product, Aggregate
 from .forms import ProductForm, AggregateForm
 
@@ -87,6 +90,19 @@ def delete_product(request, id):
         return redirect('products')  # Redirigir a la lista de productos
     
     return render(request, 'products/delete_product.html', {'producto': producto})
+
+def generar_pdf_product(request,id):
+    producto = Product.objects.get(id=id)  # Obtén el producto
+    html_string = render_to_string('products/pdf_product.html', {'producto': producto})
+    
+    # Generar el PDF
+    pdf_file = HTML(string=html_string).write_pdf()
+
+    # Configurar la respuesta HTTP
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="producto_{producto.id}.pdf"'
+
+    return response
 
 def new_aggregate(request, producto_id):
     producto = get_object_or_404(Product, id=producto_id)

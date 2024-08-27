@@ -12,6 +12,7 @@ urlpatterns = [
     path('products/<int:id>/update/', views.update_product, name='products_update'),
     path('products/<int:id>/detail/', views.detail_product, name='products_detail'),
     path('products/<int:id>/delete/', views.delete_product, name='products_delete'),
+    path('products/<int:id>/pdf/', views.generar_pdf_product, name='products_pdf'),
     # Agregados
     path('products/<int:producto_id>/aggregate/new/', views.new_aggregate, name='aggregate_new'),
     path('products/<int:producto_id>/aggregate/<int:id>/delete/', views.delete_aggregate, name='aggregate_delete'),
