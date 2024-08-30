@@ -1,31 +1,58 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>{{ producto.name }}</h1>
-<p>{{ producto.description }}</p>
-<p>Precio: ${{ producto.price }}</p>
-{% if producto.imagen %}
-    <img src="{{ producto.imagen.url }}" alt="{{ producto.name }}" />
-{% endif %}
-<h2>Agregados</h2>
-{% for agregado in agregados %}
-<li>
-    <h2>{{ agregado.name }}</h2>
-    <p>Precio: ${{ agregado.price }}</p>
-    <a href="{% url 'aggregate_delete' producto.id agregado.id %}" >Eliminar</a>
-</li>
-{% endfor %}
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <div class="row">
+    {% if producto.imagen %}
+    <div class="col-md-6">
+      <img
+        src="{{ producto.imagen.url }}"
+        alt="{{ producto.name }}"
+        class="img-fluid rounded"
+      />
+    </div>
+    {% endif %}
+    <div class="col-md-6">
+      <h1 class="mb-3">{{ producto.name }}</h1>
+      <p class="lead mb-4">{{ producto.description }}</p>
+      <h2 class="text-primary mb-3">${{ producto.price }}</h2>
+      <h3 class="mt-4 mb-3">Agregados:</h3>
+      <ul class="list-group mb-4">
+        {% for agregado in agregados %}
+        <li
+          class="list-group-item d-flex justify-content-between align-items-center"
+        >
+          {{ agregado.name }}
+          <span class="badge bg-primary rounded-pill"
+            >${{ agregado.price }}</span
+          >
+          <a href="{% url 'aggregate_delete' producto.id agregado.id %}"
+            >Eliminar</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+      <h4>Adicionar</h4>
+      <form method="post">
+        <div class="flex gap-2">
+          {% csrf_token %} {{ form.as_p }}
+        </div>
+        <div class="flex justify-content-center gap-2">
+          <button type="submit" class="btn btn-outline-primary m-1 fs-6">
+            Guardar
+          </button>
+          <a
+            href="{% url 'products_detail' producto.id %}"
+            class="btn btn-outline-danger m-1 fs-6"
+            >Cancelar</a
+          >
+          <a
+            href="{% url 'products' %}"
+            class="btn btn-outline-warning m-1 fs-6"
+            >Volver a la lista de productos</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-
-<h2>Agregar Nuevo Agregado para {{ producto.name }}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
-<a href="{% url 'products_detail' producto.id %}">Cancelar</a>
-
-
-
-
-<a href="{% url 'products' %}">Volver a la lista de productos</a>
 {% endblock %}

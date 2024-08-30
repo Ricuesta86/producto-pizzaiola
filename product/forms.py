@@ -18,3 +18,7 @@ class AggregateForm(forms.ModelForm):
     class Meta:
         model = Aggregate
         fields = ["name", "price"]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter el nombre'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter el precio'}),
+        }

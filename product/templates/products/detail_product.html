@@ -27,7 +27,7 @@
         </li>
         {% endfor %}
       </ul>
-      <div class="flex gap-2">
+      <div class="d-flex justify-content-center gap-2">
         <a href="{% url 'products_update' producto.id %}" class="btn btn-outline-success m-1 fs-6">Actualizar</a>
         <a href="{% url 'products_pdf' producto.id %}" class="btn btn-outline-info m-1 fs-6">PDF</a>
         <a href="{% url 'products_delete' producto.id %}" class="btn btn-outline-danger m-1 fs-6">Eliminar</a>
