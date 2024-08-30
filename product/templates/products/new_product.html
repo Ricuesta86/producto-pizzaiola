@@ -1,9 +1,59 @@
-{% extends 'base.html' %}
-{% block content %}
-<h1>Crear Producto</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar Producto</button>
-</form>
+{% extends 'base.html' %} {% block content %}
+<!-- <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1>Crear Producto</h1> -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Crear Producto</h5>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %} 
+            <div class="mb-3">
+                <label for="id_name" class="form-label">Nombre:</label>
+                {{form.name}}
+            </div>
+            <div class="mb-3">
+                <label for="id_description" class="form-label">Descripción:</label>
+                {{form.description}}
+            </div>
+            <div class="mb-3">
+                <label for="id_price" class="form-label">Precio:</label>
+                {{form.price}}
+            </div>
+            <div class="mb-3">
+                <label for="id_imagen" class="form-label">Imagen:</label>
+                {{form.imagen}}
+            </div>
+            <!-- {{ form.as_p }} -->
+            <div class="d-grid mt-3">
+                <button type="submit" class="btn btn-primary">Guardar Producto</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="mb-3">
+                    <label for="productName" class="form-label">Product Name</label>
+                    <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+                </div>
+                <div class="mb-3">
+                    <label for="productDescription" class="form-label">Product Description</label>
+                    <textarea class="form-control" id="productDescription" rows="3" placeholder="Enter product description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="productPrice" class="form-label">Product Price</label>
+                    <input type="text" class="form-control" id="productPrice" placeholder="Enter product price">
+                </div>
+                <div class="mb-3">
+                    <label for="productImage" class="form-label">Product Image</label>
+                    <input type="file" class="form-control" id="productImage">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form> -->
 {% endblock %}
