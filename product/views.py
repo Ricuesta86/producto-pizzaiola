@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
+from django.http import HttpResponse
+from openpyxl import Workbook
 from .models import Product, Aggregate
 from .forms import ProductForm, AggregateForm
 
@@ -129,6 +131,47 @@ def generar_pdf_product(request, id):
         f'attachment; filename="producto_{producto.id}.pdf"'
     )
 
+    return response
+
+
+@login_required(login_url="signin")
+def export_to_excel(request):
+    # Crear un libro de Excel
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Productos"
+
+    # Especificar el encabezado de las columnas
+    ws.append(['ID', 'Nombre', 'Descripción', 'Precio'])
+    
+    # # Añadir datos a las celdas
+    # ws['A1'] = 'id'
+    # ws['B1'] = 'name'
+    # ws['C1'] = 'imagen'
+    # ws['D1'] = 'description'
+    # ws['C1'] = 'price'
+    
+    # # Ejemplo de datos
+    # data = [
+    #     [1, 'Juan', 'juan@ejemplo.com'],
+    #     [2, 'Maria', 'maria@ejemplo.com'],
+    #     [3, 'Pedro', 'pedro@ejemplo.com']
+    # ]
+    productos = Product.objects.all()  # Obtén el producto
+        # Agregar cada producto al archivo Excel
+    for producto in productos:
+        ws.append([producto.id, producto.name, producto.description, producto.price])
+
+    # # Escribir datos en la hoja de cálculo
+    # for row in producto:
+    #     ws.append(row)
+
+    # Crear una respuesta HTTP con el archivo Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=export.xlsx'
+
+    # Guardar el archivo en la respuesta
+    wb.save(response)
     return response
 
 

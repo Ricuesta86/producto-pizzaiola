@@ -13,6 +13,7 @@ urlpatterns = [
     path('products/<int:id>/detail/', views.detail_product, name='products_detail'),
     path('products/<int:id>/delete/', views.delete_product, name='products_delete'),
     path('products/<int:id>/pdf/', views.generar_pdf_product, name='products_pdf'),
+    path('exportar-excel/', views.export_to_excel, name='export_to_excel'),
     # Agregados
     path('products/<int:producto_id>/aggregate/new/', views.new_aggregate, name='aggregate_new'),
     path('products/<int:producto_id>/aggregate/<int:id>/delete/', views.delete_aggregate, name='aggregate_delete'),
