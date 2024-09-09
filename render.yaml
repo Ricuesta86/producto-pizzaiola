@@ -16,7 +16,7 @@ services:
         fromDatabase:
           name: productdjangodb
           property: connectionString
-      - key: productdjango_SECRET_KEY
+      - key: SECRET_KEY
         generateValue: true
-      - key: productdjango_WEB_CONCURRENCY
+      - key: WEB_CONCURRENCY
         value: 4
